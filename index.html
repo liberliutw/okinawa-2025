@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沖繩四日遊 8/20–8/23</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=DM+Sans:wght@400;500;600&display=swap');
+  :root {
+    --ocean: #1A6B8A; --ocean-light: #E8F4F8; --ocean-mid: #3D9DB8;
+    --sand: #F5F0E8; --sand-dark: #C8B89A; --coral: #D4614A;
+    --ink: #1C2B35; --ink-mid: #4A6070; --ink-light: #8FA5B2;
+    --white: #FFFFFF; --border: #DDE8ED;
+    --d1: #534AB7; --d2: #0F7A5A; --d3: #C05030; --d4: #1A6B8A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', 'DM Sans', sans-serif; background: var(--sand); color: var(--ink); min-height: 100vh; }
+  .hero { background: var(--ocean); color: white; padding: 2.5rem 1.25rem 2rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 28px; background: var(--sand); clip-path: ellipse(55% 100% at 50% 100%); }
+  .hero-wave { position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.06; background: repeating-linear-gradient(-35deg, transparent, transparent 40px, rgba(255,255,255,0.4) 40px, rgba(255,255,255,0.4) 42px); }
+  .hero-inner { position: relative; max-width: 680px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 0.5rem; }
+  .hero-title { font-size: clamp(1.6rem, 5vw, 2.4rem); font-weight: 700; line-height: 1.2; margin-bottom: 0.75rem; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: rgba(255,255,255,0.75); margin-bottom: 1.25rem; }
+  .hero-days { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+  .hero-day-btn { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 8px; padding: 8px 4px; text-align: center; cursor: pointer; text-decoration: none; font-size: 11px; font-family: inherit; transition: background 0.15s; display: block; }
+  .hero-day-btn:hover { background: rgba(255,255,255,0.22); }
+  .hero-day-btn .day-label { font-weight: 600; font-size: 13px; display: block; margin-bottom: 2px; }
+  .main { max-width: 680px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  .info-strip { background: white; border-radius: 12px; border: 1px solid var(--border); padding: 1rem 1.1rem; margin-bottom: 1.75rem; font-size: 12px; color: var(--ink-mid); display: flex; flex-direction: column; gap: 6px; }
+  .info-row { display: flex; gap: 8px; align-items: flex-start; }
+  .info-row b { color: var(--ink); font-weight: 500; min-width: 48px; }
+  .day-section { margin-bottom: 2.5rem; }
+  .day-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.1rem; padding-bottom: 0.75rem; border-bottom: 2px solid; }
+  .day-header.d1 { border-color: var(--d1); } .day-header.d2 { border-color: var(--d2); } .day-header.d3 { border-color: var(--d3); } .day-header.d4 { border-color: var(--d4); }
+  .day-badge { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: white; flex-shrink: 0; }
+  .d1 .day-badge { background: var(--d1); } .d2 .day-badge { background: var(--d2); } .d3 .day-badge { background: var(--d3); } .d4 .day-badge { background: var(--d4); }
+  .day-date { font-size: 11px; color: var(--ink-light); font-weight: 500; letter-spacing: 0.04em; }
+  .day-name { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .notice { background: #FFF8E6; border: 1px solid #F0D080; border-radius: 8px; padding: 8px 12px; font-size: 11px; color: #7A5A10; margin-bottom: 1rem; line-height: 1.6; }
+  .notice b { color: #5A3A00; }
+  .section-route { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 11px; color: var(--ink-mid); margin-bottom: 1rem; }
+  .stops { padding-left: 16px; position: relative; }
+  .stop { display: flex; gap: 10px; margin-bottom: 10px; position: relative; }
+  .stop::before { content: ''; position: absolute; left: -12px; top: 22px; bottom: -10px; width: 1px; background: var(--border); }
+  .stop:last-child::before { display: none; }
+  .stop-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid; flex-shrink: 0; position: absolute; left: -16px; top: 14px; background: var(--sand); }
+  .d1 .stop-dot { border-color: var(--d1); } .d2 .stop-dot { border-color: var(--d2); } .d3 .stop-dot { border-color: var(--d3); } .d4 .stop-dot { border-color: var(--d4); }
+  .stop-time { font-size: 11px; color: var(--ink-light); min-width: 42px; padding-top: 12px; flex-shrink: 0; font-weight: 500; }
+  .stop-card { flex: 1; background: white; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .stop-card.is-highlight { border-color: #A0D0C0; background: #F4FBF8; }
+  .stop-card.is-option { border-style: dashed; background: var(--sand); }
+  .stop-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .stop-name { font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .stop-detail { font-size: 11px; color: var(--ink-mid); margin-top: 4px; line-height: 1.55; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .tag { font-size: 10px; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
+  .tag-see { background: #E8F0FB; color: #2850A0; } .tag-eat { background: #FEF0DC; color: #8A5010; }
+  .tag-buy { background: #E8F5EC; color: #1A7A30; } .tag-move { background: #F0EEF8; color: #5040A0; }
+  .tag-hotel { background: #FCEAEA; color: #A02020; } .tag-opt { background: #F0F0F0; color: #707070; }
+  .nav-btn { display: inline-flex; align-items: center; gap: 5px; background: var(--ocean); color: white; border: none; border-radius: 7px; padding: 6px 10px; font-size: 11px; font-weight: 500; cursor: pointer; text-decoration: none; font-family: inherit; flex-shrink: 0; transition: background 0.15s; white-space: nowrap; }
+  .nav-btn:hover { background: var(--ocean-mid); }
+  .nav-btn svg { width: 12px; height: 12px; }
+  .multi-nav { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-wave"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">2025 年夏季旅遊計畫</div>
+    <div class="hero-title">沖繩四日遊 🌊</div>
+    <div class="hero-meta">
+      <span>✈️ MM922 / MM929</span>
+      <span>📅 8/20（三）— 8/23（六）</span>
+      <span>🏨 Hotel AZAT NAHA</span>
+    </div>
+    <div class="hero-days">
+      <a href="#day1" class="hero-day-btn"><span class="day-label">Day 1</span>那霸市區</a>
+      <a href="#day2" class="hero-day-btn"><span class="day-label">Day 2</span>北部海岸</a>
+      <a href="#day3" class="hero-day-btn"><span class="day-label">Day 3</span>南部環線</a>
+      <a href="#day4" class="hero-day-btn"><span class="day-label">Day 4</span>返台</a>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="info-strip">
+    <div class="info-row"><b>航班</b><span>去程 MM922　桃園 09:35 → 那霸 12:20 ｜ 返程 MM929　那霸 → 桃園</span></div>
+    <div class="info-row"><b>住宿</b><span>Hotel AZAT NAHA（安里站）</span></div>
+    <div class="info-row"><b>租車</b><span>Day 2 早取車 → Day 3 晚還車（Times Car Rental 美榮橋站，連租兩日）</span></div>
+    <div class="info-row"><b>單軌</b><span>Day 1 &amp; 4 搭單軌，建議購一日乘車券（700円）</span></div>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="day-section" id="day1">
+    <div class="day-header d1">
+      <div class="day-badge d1">D1</div>
+      <div><div class="day-date">8/20（週三）・單軌電車日</div><div class="day-name">抵達那霸 × 首里城 × 國際通</div></div>
+    </div>
+    <div class="stops d1">
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">09:35</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">桃園機場第一航廈</div><a class="nav-btn" href="https://maps.google.com/?q=25.0814254,121.237503&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">MM922 起飛</div><div class="tags"><span class="tag tag-move">✈ 出發</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">12:20</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">那霸機場 → 單軌電車</div><a class="nav-btn" href="https://maps.google.com/?q=26.2001297,127.6466452&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">入境後搭單軌，購一日券（700円）</div><div class="tags"><span class="tag tag-move">🚝 那霸機場站</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">13:00</div>
+        <div class="stop-card is-highlight"><div class="stop-top"><div class="stop-name">Hotel AZAT 那覇</div><a class="nav-btn" href="https://maps.google.com/?q=26.2164058,127.6952703&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">寄放行李・安里站下車・步行即達</div><div class="tags"><span class="tag tag-hotel">🏨 住宿</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">13:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">首里城</div><a class="nav-btn" href="https://maps.google.com/?q=26.2170449,127.7194833&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">世界遺産・首里站下車步行10分・建議1.5小時</div><div class="tags"><span class="tag tag-see">👁 景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">15:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">達摩寺</div><a class="nav-btn" href="https://maps.google.com/?q=26.2177306,127.7225639&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">首里城附近・順路</div><div class="tags"><span class="tag tag-see">👁 景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">16:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">那霸國際通商店街</div><a class="nav-btn" href="https://maps.google.com/?q=26.2161433,127.6880667&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">牧志站下車・雪塩本店・唐吉訶德・琉貿百貨</div><div class="tags"><span class="tag tag-buy">🛍 購物</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">17:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">那霸市第一牧志公設市場</div><a class="nav-btn" href="https://maps.google.com/?q=26.2127052,127.690079&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">市場逛食材・福助玉子燒可順道</div><div class="tags"><span class="tag tag-eat">🍽 美食</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">18:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">風獅爺雞蛋糕 MIA / 沖繩麵 EIBUN</div><a class="nav-btn" href="https://maps.google.com/?q=26.2159697,127.6909617&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">牧致站附近小點</div><div class="tags"><span class="tag tag-eat">🍽 點心</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">19:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">Tsuboya Yachimun Street</div><a class="nav-btn" href="https://maps.google.com/?q=26.2129589,127.6914639&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">壺屋陶器街・晚間散步</div><div class="tags"><span class="tag tag-buy">🛍 購物</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">20:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">晚餐（三選一）</div></div><div class="stop-detail">選擇您喜歡的晚餐地點</div>
+          <div class="multi-nav">
+            <a class="nav-btn" href="https://maps.google.com/?q=26.2178669,127.6873312&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>暖暮拉麵</a>
+            <a class="nav-btn" href="https://maps.google.com/?q=26.2128953,127.6724952&navigate=yes" target="_blank" style="background:#C05030;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>傑克牛排</a>
+            <a class="nav-btn" href="https://maps.google.com/?q=26.2167026,127.690478&navigate=yes" target="_blank" style="background:#7A5020;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>屋台村夜市</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-section" id="day2">
+    <div class="day-header d2">
+      <div class="day-badge d2">D2</div>
+      <div><div class="day-date">8/21（週四）・租車第 1 天・約 130km</div><div class="day-name">北部精華：古宇利島 × 美麗海水族館 × 備瀨</div></div>
+    </div>
+    <div class="notice">⚠️ 建議 <b>07:30 前</b> 取車出發，北上避開午間車潮。今日取車，Day 3 晚還車。車停飯店附近コインパーキング過夜（約 500–800 円）。</div>
+    <div class="stops d2">
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">07:30</div>
+        <div class="stop-card is-highlight"><div class="stop-top"><div class="stop-name">Times Car Rental 美榮橋站 取車</div><a class="nav-btn" href="https://maps.google.com/?q=26.2185459,127.6866106&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">連租兩日，Day 3 晚還車</div><div class="tags"><span class="tag tag-move">🚗 取車</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">08:00</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">Fluffy Coconut（早餐）</div><a class="nav-btn" href="https://maps.google.com/?q=26.3335287,127.7914911&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">北上途中・浦添市</div><div class="tags"><span class="tag tag-eat">🍽 早餐</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">09:00</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">萬座毛</div><a class="nav-btn" href="https://maps.google.com/?q=26.5052353,127.8504781&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">天然石灰岩斷崖・步道約30分</div><div class="tags"><span class="tag tag-see">👁 景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">10:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">部瀨名海中公園 + 海中觀景塔</div><a class="nav-btn" href="https://maps.google.com/?q=26.5384762,127.9348899&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">玻璃底船 + 海中塔・約1小時</div><div class="tags"><span class="tag tag-see">👁 景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">12:00</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">許田休息站 + Blue Seal 冰淇淋</div><a class="nav-btn" href="https://maps.google.com/?q=26.5520359,127.9701677&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">名護・Blue Seal 沖繩限定口味</div><div class="tags"><span class="tag tag-eat">🍦 甜點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">12:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">A&amp;W Nago（午餐）</div><a class="nav-btn" href="https://maps.google.com/?q=26.5794167,127.9846788&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">沖繩限定漢堡・Blue Seal 旁</div><div class="tags"><span class="tag tag-eat">🍔 午餐</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">13:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">古宇利大橋 + 古宇利海洋塔</div><a class="nav-btn" href="https://maps.google.com/?q=26.6865208,128.0172722&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">跨海大橋景觀・塔頂360度視野・心形岩</div><div class="tags"><span class="tag tag-see">👁 景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">15:00</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">沖繩美麗海水族館</div><a class="nav-btn" href="https://maps.google.com/?q=26.694338,127.8780131&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">鯨鯊水槽・黑潮之海・建議2小時以上</div><div class="tags"><span class="tag tag-see">👁 主景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">17:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">備瀨福木林道</div><a class="nav-btn" href="https://maps.google.com/?q=26.7015874,127.8802247&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">水族館旁・夕陽前光線最美・可租腳踏車</div><div class="tags"><span class="tag tag-see">👁 景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">19:00</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">百年古家 大家 阿古豬（晚餐）</div><a class="nav-btn" href="https://maps.google.com/?q=26.6209963,127.9636717&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">名護市・沖繩島豚料理・建議訂位</div><div class="tags"><span class="tag tag-eat">🍽 晚餐</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">20:30</div>
+        <div class="stop-card is-highlight"><div class="stop-top"><div class="stop-name">開車返那霸・車停飯店附近</div></div><div class="stop-detail">名護→那霸約60分（沖縄自動車道）・車輛過夜，明日繼續使用</div><div class="tags"><span class="tag tag-move">🚗 車輛過夜</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">備選</div>
+        <div class="stop-card is-option"><div class="stop-top"><div class="stop-name">青之洞窟浮潛（可加在萬座毛之前）</div><a class="nav-btn" href="https://maps.google.com/?q=26.4269159,127.7512338&navigate=yes" target="_blank" style="background:#888;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">恩納村・需提前預約體驗課程</div><div class="tags"><span class="tag tag-opt">可選</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-section" id="day3">
+    <div class="day-header d3">
+      <div class="day-badge d3">D3</div>
+      <div><div class="day-date">8/22（週五）・租車第 2 天・約 60km</div><div class="day-name">南部精華：玉泉洞 × 新原海灘 × 美國村</div></div>
+    </div>
+    <div class="section-route">🗺 路線：那霸 → 瀨長島 → 糸滿 → 玉泉洞 → 新原海灘 → 美國村 → 美榮橋還車</div>
+    <div class="stops d3">
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">08:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">瀨長島 + 瀨長西海灘</div><a class="nav-btn" href="https://maps.google.com/?q=26.1773033,127.6411525&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">那霸機場旁・咖啡早餐・可看飛機起降</div><div class="tags"><span class="tag tag-see">👁 景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">10:00</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">沖繩 ASHIBINAA Outlet</div><a class="nav-btn" href="https://maps.google.com/?q=26.1590569,127.6575776&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">瀨長島旁・免稅購物・10:00開門</div><div class="tags"><span class="tag tag-buy">🛍 購物</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">11:00</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">DMM Kariyushi 水族館</div><a class="nav-btn" href="https://maps.google.com/?q=26.1563877,127.6506782&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">Outlet 旁・室內・LED水缸・約1小時</div><div class="tags"><span class="tag tag-see">👁 景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">12:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">糸滿魚市場（午餐）</div><a class="nav-btn" href="https://maps.google.com/?q=26.1380987,127.6613785&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">新鮮海産・非常在地</div><div class="tags"><span class="tag tag-eat">🐟 午餐</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">13:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">琉球玻璃村</div><a class="nav-btn" href="https://maps.google.com/?q=26.0976231,127.6771751&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">手工玻璃體驗 + 選購伴手禮</div><div class="tags"><span class="tag tag-buy">🛍 體驗</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">14:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">玉泉洞 + 沖繩世界</div><a class="nav-btn" href="https://maps.google.com/?q=26.1404807,127.7489447&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">日本最長鐘乳石洞・琉球文化村・約2小時</div><div class="tags"><span class="tag tag-see">👁 主景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">17:00</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">OCEANS 新原海底觀光 + 新原沙灘</div><a class="nav-btn" href="https://maps.google.com/?q=26.1344994,127.7913368&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">玻璃底船・黃昏海灘・浮潛</div><div class="tags"><span class="tag tag-see">👁 景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">19:00</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">美國村（晚餐 + 購物）</div><a class="nav-btn" href="https://maps.google.com/?q=26.3158799,127.7540077&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">北迴途中・美軍基地風情・餐廳選擇多</div><div class="tags"><span class="tag tag-eat">🍽 晚餐</span><span class="tag tag-buy">🛍 購物</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">21:00</div>
+        <div class="stop-card is-highlight"><div class="stop-top"><div class="stop-name">Times Car Rental 美榮橋站 還車</div><a class="nav-btn" href="https://maps.google.com/?q=26.2185459,127.6866106&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">還車後計程車約 500 円回 Hotel AZAT（約10分）</div><div class="tags"><span class="tag tag-move">🚗 還車</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="day-section" id="day4">
+    <div class="day-header d4">
+      <div class="day-badge d4">D4</div>
+      <div><div class="day-date">8/23（週六）・單軌電車日</div><div class="day-name">波上宮 × 縣廳前購物 × 返台</div></div>
+    </div>
+    <div class="stops d4">
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">08:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">Union Sukara Oroku（採買）</div><a class="nav-btn" href="https://maps.google.com/?q=26.1877564,127.657936&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">沖繩超市・伴手禮零食・泡盛・計程車前往較方便</div><div class="tags"><span class="tag tag-buy">🛍 採買</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">10:00</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">波上宮</div><a class="nav-btn" href="https://maps.google.com/?q=26.2207369,127.6711012&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">沖繩最古老神社・旭橋站步行・求平安</div><div class="tags"><span class="tag tag-see">👁 景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">10:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">波之上海灘</div><a class="nav-btn" href="https://maps.google.com/?q=26.2212041,127.6720664&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">城市海灘・波上宮旁・最後海景</div><div class="tags"><span class="tag tag-see">👁 景點</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">11:30</div>
+        <div class="stop-card"><div class="stop-top"><div class="stop-name">縣廳前（Kencho-Mae）</div><a class="nav-btn" href="https://maps.google.com/?q=26.2143946,127.6793326&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">最後掃街・藥妝・國際通尾段・午餐</div><div class="tags"><span class="tag tag-buy">🛍 購物</span><span class="tag tag-eat">🍽 午餐</span></div></div>
+      </div>
+      <div class="stop"><div class="stop-dot"></div><div class="stop-time">13:30</div>
+        <div class="stop-card is-highlight"><div class="stop-top"><div class="stop-name">那霸機場 出發</div><a class="nav-btn" href="https://maps.google.com/?q=26.2001297,127.6466452&navigate=yes" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>導航</a></div><div class="stop-detail">單軌→那霸機場站・搭 MM929 返台</div><div class="tags"><span class="tag tag-move">✈ 返台</span></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
