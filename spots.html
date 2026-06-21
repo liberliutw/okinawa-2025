@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沖繩景點介紹 | 2026 四日遊</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+  :root {
+    --ocean: #1A6B8A; --ocean-light: #E8F4F8; --ocean-mid: #3D9DB8;
+    --sand: #F5F0E8; --ink: #1C2B35; --ink-mid: #4A6070; --ink-light: #8FA5B2;
+    --white: #FFFFFF; --border: #DDE8ED;
+    --d1: #534AB7; --d2: #0F7A5A; --d3: #C05030; --d4: #1A6B8A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', sans-serif; background: var(--sand); color: var(--ink); }
+
+  /* TOP BAR */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--ocean); color: white;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.75rem 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: white; text-decoration: none; font-size: 13px; font-weight: 500;
+    background: rgba(255,255,255,0.15); border-radius: 8px;
+    padding: 6px 12px; transition: background 0.15s;
+  }
+  .back-btn:hover { background: rgba(255,255,255,0.25); }
+  .topbar-title { font-size: 14px; font-weight: 600; }
+  .topbar-sub { font-size: 11px; color: rgba(255,255,255,0.65); }
+
+  /* DAY JUMP */
+  .day-jump {
+    display: flex; gap: 8px; overflow-x: auto;
+    padding: 0.75rem 1rem; background: white;
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+  }
+  .day-jump::-webkit-scrollbar { display: none; }
+  .jump-btn {
+    flex-shrink: 0; font-size: 11px; font-weight: 600;
+    padding: 5px 14px; border-radius: 20px; border: 1.5px solid;
+    text-decoration: none; transition: all 0.15s; white-space: nowrap;
+  }
+  .jump-btn.d1 { border-color: var(--d1); color: var(--d1); }
+  .jump-btn.d1:hover { background: var(--d1); color: white; }
+  .jump-btn.d2 { border-color: var(--d2); color: var(--d2); }
+  .jump-btn.d2:hover { background: var(--d2); color: white; }
+  .jump-btn.d3 { border-color: var(--d3); color: var(--d3); }
+  .jump-btn.d3:hover { background: var(--d3); color: white; }
+  .jump-btn.d4 { border-color: var(--d4); color: var(--d4); }
+  .jump-btn.d4:hover { background: var(--d4); color: white; }
+  .jump-btn.opt { border-color: #888; color: #888; }
+
+  /* MAIN */
+  .main { max-width: 720px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+
+  /* DAY SECTION */
+  .day-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.5rem 0; margin: 2rem 0 1rem;
+    display: flex; align-items: center; gap: 10px; color: var(--ink-light);
+  }
+  .day-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .day-label span { padding: 3px 10px; border-radius: 6px; color: white; font-size: 11px; }
+  .day-label.d1 span { background: var(--d1); }
+  .day-label.d2 span { background: var(--d2); }
+  .day-label.d3 span { background: var(--d3); }
+  .day-label.d4 span { background: var(--d4); }
+  .day-label.opt span { background: #888; }
+
+  /* SPOT CARD */
+  .spot-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.1rem 1.25rem;
+    margin-bottom: 1rem; scroll-margin-top: 70px;
+  }
+  .spot-card:hover { box-shadow: 0 2px 12px rgba(26,107,138,0.1); }
+
+  .spot-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 0.6rem; }
+  .spot-name { font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+  .spot-en { font-size: 11px; color: var(--ink-light); margin-top: 2px; }
+
+  .spot-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.75rem; }
+  .meta-pill {
+    font-size: 10px; padding: 2px 8px; border-radius: 10px;
+    background: var(--ocean-light); color: var(--ocean);
+    font-weight: 500; white-space: nowrap;
+  }
+  .meta-pill.fee { background: #FEF0DC; color: #8A5010; }
+  .meta-pill.time { background: #E8F5EC; color: #1A6A30; }
+
+  .spot-desc { font-size: 12.5px; color: var(--ink-mid); line-height: 1.75; margin-bottom: 0.85rem; }
+  .spot-desc b { color: var(--ink); font-weight: 600; }
+
+  .spot-tip {
+    background: var(--ocean-light); border-left: 3px solid var(--ocean);
+    border-radius: 0 8px 8px 0; padding: 7px 12px;
+    font-size: 11.5px; color: var(--ink-mid); line-height: 1.6;
+    margin-bottom: 0.85rem;
+  }
+  .spot-tip b { color: var(--ocean); }
+
+  /* DRONE */
+  .drone-box {
+    border-radius: 8px; padding: 8px 12px;
+    font-size: 11.5px; line-height: 1.6; margin-bottom: 0.85rem;
+  }
+  .drone-box.no  { background: #FCEAEA; border: 1px solid #F0C0C0; color: #8A1A1A; }
+  .drone-box.warn{ background: #FFF3DC; border: 1px solid #F0D080; color: #7A5A00; }
+  .drone-box.ok  { background: #E8F5EC; border: 1px solid #A0D0A0; color: #1A5A20; }
+  .drone-box b { font-weight: 600; }
+
+  /* LINKS */
+  .link-row { display: flex; flex-wrap: wrap; gap: 7px; }
+  .link-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 500; padding: 6px 12px;
+    border-radius: 8px; text-decoration: none; transition: opacity 0.15s;
+  }
+  .link-btn:hover { opacity: 0.8; }
+  .link-btn.blog { background: var(--ocean-light); color: var(--ocean); border: 1px solid #A0CCE0; }
+  .link-btn.yt   { background: #FEEEEE; color: #C00000; border: 1px solid #F0B0B0; }
+  .link-btn svg  { width: 13px; height: 13px; flex-shrink: 0; }
+
+  .divider { height: 1px; background: var(--border); margin: 0.5rem 0 0.85rem; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="back-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    回行程
+  </a>
+  <div style="text-align:right">
+    <div class="topbar-title">景點介紹</div>
+    <div class="topbar-sub">沖繩 2026 四日遊</div>
+  </div>
+</div>
+
+<div class="day-jump">
+  <a href="#day1" class="jump-btn d1">Day 1 那霸市區</a>
+  <a href="#day2" class="jump-btn d2">Day 2 北部海岸</a>
+  <a href="#day3" class="jump-btn d3">Day 3 南部環線</a>
+  <a href="#day4" class="jump-btn d4">Day 4 返台半日</a>
+  <a href="#optional" class="jump-btn opt">備選景點</a>
+</div>
+
+<div class="main">
+
+<!-- ══════════ DAY 1 ══════════ -->
+<div class="day-label d1" id="day1"><span>Day 1</span>8/20（週四）那霸市區</div>
+
+<!-- 首里城 -->
+<div class="spot-card" id="shuri">
+  <div class="spot-top">
+    <div><div class="spot-name">首里城</div><div class="spot-en">Shuri Castle</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 1.5–2 小時</span>
+    <span class="meta-pill fee">🎟 400円（外郭免費）</span>
+    <span class="meta-pill time">🕗 8:00–19:30（依季節）</span>
+  </div>
+  <div class="spot-desc">
+    琉球王國的政治與文化中心，2000年列入世界文化遺產。正殿融合中國與日本建築風格，朱紅色外牆在陽光下格外壯觀。2019年大火後持續重建，<b>外郭城牆與園區可免費參觀</b>，正殿部分區域已逐步開放。從城上可遠眺那霸市區與港口，景色遼闊。首里站下車步行約10分鐘，沿途已有指示牌。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：平日早上10點前人潮最少，光線也最適合拍照。穿舒適鞋，石板路坡度不小。</div>
+  <div class="drone-box no">🚁 <b>無人機：❌ 禁飛</b>　縣營都市公園明文禁止，範圍涵蓋整個首里城公園園區。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://bobbytravel.tw/okinawa-attractions/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>波比看世界 景點攻略
+    </a>
+    <a class="link-btn blog" href="https://www.wendyjourney.com/okinawa-attractions/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>Wendy's Journey 首里城
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=首里城+沖繩+2025+攻略" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- 國際通 + 牧志市場 -->
+<div class="spot-card" id="kokusaidori">
+  <div class="spot-top">
+    <div><div class="spot-name">國際通 + 第一牧志公設市場</div><div class="spot-en">Kokusai-dori & Makishi Public Market</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 2–3 小時</span>
+    <span class="meta-pill fee">🎟 免費逛街</span>
+    <span class="meta-pill time">🕗 市場 8:00–21:00</span>
+  </div>
+  <div class="spot-desc">
+    那霸最熱鬧的購物街，全長約1.6公里，兩側匯集藥妝、伴手禮、琉球玻璃、泡盛等特色店。<b>雪塩本店</b>、<b>唐吉訶德那霸國際通店</b>是必逛。旁邊的第一牧志公設市場2023年完成整修重開，市場內可購買新鮮食材、海產，2樓有食堂可帶食材上去料理（收工錢）。市場附近的壺屋陶器街是購買手工琉球陶的好地方。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：雪塩冰淇淋、風獅爺雞蛋糕是邊走邊吃的首選。傍晚人潮最多，喜歡拍照建議早點來。</div>
+  <div class="drone-box no">🚁 <b>無人機：❌ 禁飛</b>　人口高度集中地區，依航空法規定禁止飛行。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://massi.tw/okinawa-main-island-attractions-map/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>馬摩 沖繩景點地圖
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=沖繩+國際通+牧志市場+攻略+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- ══════════ DAY 2 ══════════ -->
+<div class="day-label d2" id="day2"><span>Day 2</span>8/21（週五）北部海岸</div>
+
+<!-- 萬座毛 -->
+<div class="spot-card" id="manzamo">
+  <div class="spot-top">
+    <div><div class="spot-name">萬座毛</div><div class="spot-en">Manzamo</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 30–45 分鐘</span>
+    <span class="meta-pill fee">🎟 100円（設施維護費）</span>
+    <span class="meta-pill time">🕗 9:00–18:00</span>
+  </div>
+  <div class="spot-desc">
+    天然石灰岩斷崖，俯瞰東海的遼闊海景。「萬座」意指可容納萬人之地，礁岩形狀宛如大象鼻子探入海中，是沖繩最具代表性的地貌之一。整修後設置了完善的木棧步道，避免遊客踩踏植被。日落前一小時光線最美，逆光拍大象岩特別壯觀。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：停車場平日充足，假日旺季建議早上9點前抵達。步道鋪設完善，老少適宜。</div>
+  <div class="drone-box warn">🚁 <b>無人機：⚠️ 需事先確認</b>　周邊鄰近美軍施設，建議出發前用 DIPS FISS 查詢當下空域狀態，並確認 300m 管制圈範圍。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://bobbytravel.tw/okinawa-attractions/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>波比看世界 攻略
+    </a>
+    <a class="link-btn blog" href="https://massi.tw/okinawa-main-island-attractions-map/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>馬摩 景點地圖
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=萬座毛+沖繩+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- 部瀨名海中公園 -->
+<div class="spot-card" id="busena">
+  <div class="spot-top">
+    <div><div class="spot-name">部瀨名海中公園</div><div class="spot-en">Busena Marine Park</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 1–1.5 小時</span>
+    <span class="meta-pill fee">🎟 玻璃底船 1,500円 / 海中塔 1,000円 / 套票 2,000円</span>
+    <span class="meta-pill time">🕗 9:00–18:00</span>
+  </div>
+  <div class="spot-desc">
+    沖繩最知名的海中觀光設施，分為<b>玻璃底船</b>與<b>海中展望塔</b>兩部分。玻璃底船繞行約20分鐘，可在船底透明玻璃觀察珊瑚礁與熱帶魚；海中塔則沿螺旋梯下潛至水面下5公尺，透過24個舷窗欣賞沖繩本島近海生態。兩者可合購套票，適合不潛水也想看海底的旅客。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：晴天效果最好，陰天海水透明度較差。建議買套票，時間預留充裕一點。</div>
+  <div class="drone-box warn">🚁 <b>無人機：⚠️ 需事先確認</b>　沿岸觀光設施，鄰近美軍施設，飛行前需查 DIPS 確認空域。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://www.wendyjourney.com/okinawa-attractions/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>Wendy's Journey 攻略
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=部瀨名海中公園+沖繩+玻璃底船" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- 古宇利大橋 -->
+<div class="spot-card" id="kouri">
+  <div class="spot-top">
+    <div><div class="spot-name">古宇利大橋 + 古宇利海洋塔</div><div class="spot-en">Kouri Bridge & Ocean Tower</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 1–1.5 小時</span>
+    <span class="meta-pill fee">🎟 海洋塔 1,000円</span>
+    <span class="meta-pill time">🕗 海洋塔 9:00–18:00</span>
+  </div>
+  <div class="spot-desc">
+    全長1.9公里的古宇利大橋跨越湛藍海峽，連接本島與古宇利島，被稱為「沖繩版夏威夷海上公路」。橋頭停車場是眺望大橋全景的最佳位置。島上的<b>古宇利海洋塔</b>可俯瞰360度海景；海灘步行可達的<b>心形岩（ハートロック）</b>因日本偶像團體嵐的廣告而爆紅，象徵戀愛聖地。通往心形岩的步道有礁石，請穿包鞋。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：心形岩停車場空間有限，旺季建議停在第二停車場再步行前往。蝦蝦飯是島上必吃，但排隊很長。</div>
+  <div class="drone-box warn">🚁 <b>無人機：⚠️ 需事先確認</b>　橋梁本體及人潮聚集處禁止飛行，附近海面空域需查 DIPS FISS 確認後方可飛行。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://kimiyo.tw/kouri-island/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>喵爸喵媽 古宇利島攻略
+    </a>
+    <a class="link-btn blog" href="https://okinawa.letsgojp.com/archives/392405/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>古宇利島完整攻略
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=古宇利島+心形岩+沖繩+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- 美麗海水族館 -->
+<div class="spot-card" id="churaumi">
+  <div class="spot-top">
+    <div><div class="spot-name">沖繩美麗海水族館</div><div class="spot-en">Okinawa Churaumi Aquarium</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 2–3 小時</span>
+    <span class="meta-pill fee">🎟 大人 2,180円 / 高中生 1,440円 / 國中以下免費</span>
+    <span class="meta-pill time">🕗 8:30–18:30（最後入館 17:30）</span>
+  </div>
+  <div class="spot-desc">
+    沖繩最標誌性的景點，擁有<b>710種海洋生物、800種珊瑚</b>。核心展區「黑潮之海」擁有7,500立方公尺的超大水槽，館內飼養全長約8.8公尺的<b>鯨鯊</b>與<b>鬼蝠魟</b>，是全球極少數能穩定飼養這兩種生物的水族館。參觀動線從4樓入口往下，宛如潛入深海的旅程。戶外海豚表演免費觀看，鯨鯊餵食秀（15:00）是一天亮點。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：15:00後入館人潮最少，且能看到鯨鯊餵食秀。建議停 P5 停車場（步行400m但容易找位）。海洋博公園內其他設施（海牛館、海龜館、海豚劇場）均免費。</div>
+  <div class="drone-box no">🚁 <b>無人機：❌ 禁飛</b>　海洋博公園為地方自治體管理設施，明文禁止無人機飛行。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://massi.tw/okinawa-churaumi-aquarium/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>馬摩 水族館完整指南
+    </a>
+    <a class="link-btn blog" href="https://travelcontentsapp.com/guide/okinawa/b604/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>樂享周遊券 攻略
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=沖繩美麗海水族館+攻略+鯨鯊+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- 備瀨福木林道 -->
+<div class="spot-card" id="bise">
+  <div class="spot-top">
+    <div><div class="spot-name">備瀨福木林道</div><div class="spot-en">Bise Fukugi Tree Road</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 30–60 分鐘</span>
+    <span class="meta-pill fee">🎟 免費（腳踏車租借另計）</span>
+    <span class="meta-pill time">🕙 全天開放</span>
+  </div>
+  <div class="spot-desc">
+    水族館旁的備瀨村，以數百年樹齡的<b>福木防風林道</b>聞名。福木在沖繩自古被視為「招福之樹」，村落以棋盤式排列保留至今。林道濃蔭蔽日，走在其中涼意陣陣，適合夕陽前光線柔和時漫步或租腳踏車穿梭。穿過林道可抵達珊瑚礁海岸，退潮時有豐富潮間帶生物可觀察。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：日落前1小時光線最美，金色光線從樹縫灑下極具氛圍。腳踏車租借在林道入口處，時租約300円。</div>
+  <div class="drone-box ok">🚁 <b>無人機：🟡 相對可行</b>　自然區域，早晨人少時段條件最好。飛行前仍需用 DIPS FISS 查詢空域，確認無禁飛區後方可起飛。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://massi.tw/okinawa-main-island-attractions-map/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>馬摩 備瀨崎介紹
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=備瀨福木林道+沖繩+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- ══════════ DAY 3 ══════════ -->
+<div class="day-label d3" id="day3"><span>Day 3</span>8/22（週六）南部環線</div>
+
+<!-- 瀨長島 -->
+<div class="spot-card" id="senagajima">
+  <div class="spot-top">
+    <div><div class="spot-name">瀨長島 Umikaji Terrace</div><div class="spot-en">Senagajima Island</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 1–1.5 小時</span>
+    <span class="meta-pill fee">🎟 免費入島</span>
+    <span class="meta-pill time">🕙 商店 10:00–21:00（部分早開）</span>
+  </div>
+  <div class="spot-desc">
+    距那霸機場僅5分鐘車程的小島，以地中海風格的白色階梯式商店街「Umikaji Terrace」著稱。咖啡廳、甜品、海鮮料理一應俱全，戶外座位正對機場跑道，<b>可邊喝咖啡邊看飛機起降</b>，是絕佳的飛機迷聖地。日落時分，夕陽餘暉染紅整片天空，氣氛絕佳。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：早上人少、商店不全開，適合拍照。幸福鬆餅是熱門甜點，需等候30分鐘以上，建議一到就先排。</div>
+  <div class="drone-box no">🚁 <b>無人機：❌ 嚴格禁飛</b>　位於那霸機場起降航道正上方，屬機場管制空域，任何無人機飛行均嚴格禁止，違者重罰。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://shendeng.com.tw/spot/okinawa-travel/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>神燈假期 瀨長島攻略
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=瀨長島+Umikaji+沖繩+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- DMM Kariyushi -->
+<div class="spot-card" id="dmm">
+  <div class="spot-top">
+    <div><div class="spot-name">DMM Kariyushi 水族館</div><div class="spot-en">DMM Kariyushi Aquarium</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 1–1.5 小時</span>
+    <span class="meta-pill fee">🎟 大人 2,000円 / 兒童 1,000円</span>
+    <span class="meta-pill time">🕙 10:00–20:00</span>
+  </div>
+  <div class="spot-desc">
+    與美麗海水族館截然不同的都市型水族館，以<b>大型 LED 顯示幕</b>打造沉浸式海洋體驗為特色。館內融合科技藝術感，水母缸在燈光下猶如夢境，很適合拍照打卡。規模較精緻，定位為「當代藝術水族館」，展區不大但視覺衝擊強。位於 ASHIBINAA Outlet 旁，可兩者串聯參觀。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：不要帶著和美麗海水族館比較的期待來，把它當作沉浸式藝術體驗會更享受。人潮比美麗海少很多。</div>
+  <div class="drone-box no">🚁 <b>無人機：❌ 禁飛</b>　室內商業設施，周邊為人口集中區域，禁止飛行。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://travelcontentsapp.com/guide/okinawa/b604/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>DMM vs 美麗海比較
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=DMM+Kariyushi+水族館+沖繩+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- 琉球玻璃村 -->
+<div class="spot-card" id="glass">
+  <div class="spot-top">
+    <div><div class="spot-name">琉球玻璃村</div><div class="spot-en">Ryukyu Glass Village</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 45–60 分鐘</span>
+    <span class="meta-pill fee">🎟 工廠免費參觀；體驗課程 2,500円起</span>
+    <span class="meta-pill time">🕙 9:00–18:00</span>
+  </div>
+  <div class="spot-desc">
+    沖繩琉球玻璃工藝的代表性工坊，可觀賞職人現場吹製玻璃的過程，也提供多種<b>手作體驗課程</b>（吹製、彩繪、砂雕）。展售區有大量色彩繽紛的琉球玻璃製品，氣泡與色澤是其特色，非常適合購買作為伴手禮。二戰後用美軍廢棄玻璃瓶再製的歷史背景，讓這項工藝更具意義。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：體驗課程建議事先預約，旺季現場可能額滿。製作完成品需等待冷卻，約1–2週後郵寄到府（台灣可寄）。</div>
+  <div class="drone-box warn">🚁 <b>無人機：⚠️ 需業者書面同意</b>　私有地，拍攝前需事先聯繫業者取得書面許可。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://www.wendyjourney.com/okinawa-attractions/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>Wendy's Journey 攻略
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=琉球玻璃村+沖繩+體驗+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- 玉泉洞 -->
+<div class="spot-card" id="gyokusendo">
+  <div class="spot-top">
+    <div><div class="spot-name">玉泉洞 + 沖繩世界文化王國</div><div class="spot-en">Gyokusendo Cave & Okinawa World</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 2–2.5 小時</span>
+    <span class="meta-pill fee">🎟 套票 大人 2,000円 / 兒童（4-14歲）1,000円</span>
+    <span class="meta-pill time">🕙 9:00–18:00（最後入場 17:00）</span>
+  </div>
+  <div class="spot-desc">
+    日本最大鐘乳石洞之一，<b>歷經30萬年形成的100萬根鐘乳石</b>令人屏息，開放參觀長度890公尺，全程約30–40分鐘。洞內常年維持21°C，是夏季消暑的好去處。出洞後進入「王國村」，可欣賞充滿爆發力的 <b>Super Eisa 太鼓舞</b>表演（表演期間禁拍，結束後可與演者合照），也有琉球服飾租借、彩繪風獅爺等體驗。園區腹地寬廣，建議預留足夠時間。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：洞內常年潮濕，步道非常濕滑，請穿防滑包鞋。太鼓舞表演時間請事先確認，提早15分鐘卡位。</div>
+  <div class="drone-box warn">🚁 <b>無人機：⚠️ 需業者書面同意</b>　私有地（沖繩世界），需事先聯繫業者取得書面許可，洞內禁止任何飛行。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://bobbytravel.tw/okinawa-attractions/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>波比看世界 玉泉洞攻略
+    </a>
+    <a class="link-btn blog" href="https://www.wendyjourney.com/okinawa-attractions/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>Wendy's Journey 攻略
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=玉泉洞+沖繩世界+太鼓舞+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- 新原海灘 -->
+<div class="spot-card" id="niibaru">
+  <div class="spot-top">
+    <div><div class="spot-name">新原海灘 + OCEANS 海底觀光</div><div class="spot-en">Niibaru Beach & Glass-bottom Boat</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 1–2 小時</span>
+    <span class="meta-pill fee">🎟 玻璃底船 1,500円 / 浮潛體驗另計</span>
+    <span class="meta-pill time">🕙 9:00–17:30</span>
+  </div>
+  <div class="spot-desc">
+    沖繩南部最美的天然海灘之一，海水清澈、珊瑚礁豐富，退潮時甚至可以涉水步行至外礁，觀察海底生物。<b>OCEANS 新原海底觀光</b>提供玻璃底船，不需潛水也能欣賞珊瑚礁生態。黃昏時分夕陽西落，海面染成橙紅色，是本趟行程最適合帶出無人機飛行的地點。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：夕陽約17:30–18:30，建議17:00抵達。浮潛需自備裝備或現場租借，珊瑚礁區需穿水鞋保護腳底。</div>
+  <div class="drone-box ok">🚁 <b>無人機：🟡 行程中最推薦飛行地點</b>　南部海灘、人潮較少，黃昏時段條件最佳。飛行前仍需查 DIPS FISS 確認空域，避開人群上方飛行。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://massi.tw/okinawa-main-island-attractions-map/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>馬摩 海灘推薦
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=新原海灘+沖繩+浮潛+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- 美國村 -->
+<div class="spot-card" id="americanvillage">
+  <div class="spot-top">
+    <div><div class="spot-name">美國村</div><div class="spot-en">American Village (Mihama)</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 1.5–2 小時</span>
+    <span class="meta-pill fee">🎟 免費進入</span>
+    <span class="meta-pill time">🕙 商店 11:00–21:00（部分餐廳更晚）</span>
+  </div>
+  <div class="spot-desc">
+    圍繞昔日美軍基地發展而成的複合商業區，保留濃厚的美式風情。大型摩天輪、彩色外牆建築、國際品牌與特色小店林立，夜晚燈光璀璨，氣氛熱鬧。除了購物，這裡也是沖繩知名的<b>夕陽觀賞點</b>，面西的海景在日落時分相當壯觀。旁邊的 AEON Mall 可補充採買。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：夕陽約18:30，可先安排晚餐再逛街。摩天輪票價約600円，從頂部可俯瞰整個美國村與海景。</div>
+  <div class="drone-box no">🚁 <b>無人機：❌ 禁飛</b>　鄰近嘉手納空軍基地，屬小型無人機等飛行禁止法規制範圍，嚴格禁止飛行。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://massi.tw/okinawa-main-island-attractions-map/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>馬摩 美國村介紹
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=美國村+沖繩+夜景+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- ══════════ DAY 4 ══════════ -->
+<div class="day-label d4" id="day4"><span>Day 4</span>8/23（週日）返台半日</div>
+
+<!-- 波上宮 -->
+<div class="spot-card" id="naminouegu">
+  <div class="spot-top">
+    <div><div class="spot-name">波上宮 + 波之上海灘</div><div class="spot-en">Naminoue Shrine & Beach</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 建議 30–45 分鐘</span>
+    <span class="meta-pill fee">🎟 免費參拜</span>
+    <span class="meta-pill time">🕙 全天開放</span>
+  </div>
+  <div class="spot-desc">
+    沖繩最古老的神社，建於懸崖之上，宛如浮於浪上，是那霸市民心靈信仰中心。熱門御守包含<b>貝殼結緣御守</b>與書包交通御守。參拜後步行即達<b>波之上海灘</b>，是那霸市區難得的天然海灘，雖緊鄰市區，但沙質細白、海水尚清，適合最後一天輕鬆散步吹海風。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：早上人少，參拜氣氛寧靜。波之上海灘有淋浴設施，適合下水玩耍。旭橋站步行約12分鐘。</div>
+  <div class="drone-box no">🚁 <b>無人機：❌ 禁飛</b>　神社為都市公園管轄範圍，周邊為人口集中地區，依法禁止飛行。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://www.footprintokinawa.com/zh-TW/galleries/67" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>行腳沖繩 波上宮介紹
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=波上宮+那霸+沖繩+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+<!-- ══════════ 備選 ══════════ -->
+<div class="day-label opt" id="optional"><span>備選</span>可加入行程</div>
+
+<!-- 青之洞窟 -->
+<div class="spot-card" id="blue-cave">
+  <div class="spot-top">
+    <div><div class="spot-name">青之洞窟浮潛</div><div class="spot-en">Blue Cave Snorkeling, Onna</div></div>
+  </div>
+  <div class="spot-meta">
+    <span class="meta-pill">⏱ 體驗約 1.5–2 小時</span>
+    <span class="meta-pill fee">🎟 體驗課程約 3,500–5,000円</span>
+    <span class="meta-pill time">🕙 依業者時段，早場約 8:30</span>
+  </div>
+  <div class="spot-desc">
+    位於恩納村的海蝕洞窟，以陽光透過洞口折射產生的<b>神秘藍光</b>聞名，是全球知名的浮潛聖地。無需潛水證照，參加體驗課程即可入水，教練全程陪同。旺季人潮極多，建議選擇早場（8:30–9:00）人潮最少。可插入 <b>Day 2 萬座毛之前</b>（恩納村順路），是行程中最自然的加入節點。
+  </div>
+  <div class="spot-tip"><b>💡 建議</b>：務必提前線上預約，旺季現場幾乎無法臨時報名。帶泳衣、防曬，業者通常提供浮潛裝備。海況惡劣時業者會取消，需確認退款政策。</div>
+  <div class="drone-box no">🚁 <b>無人機：❌ 禁飛</b>　恩納村沿岸鄰近美軍施設，屬禁飛管制範圍。</div>
+  <div class="divider"></div>
+  <div class="link-row">
+    <a class="link-btn blog" href="https://kimiyo.tw/kouri-island/" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>喵爸喵媽 北部攻略
+    </a>
+    <a class="link-btn yt" href="https://www.youtube.com/results?search_query=青之洞窟+藍洞+沖繩+浮潛+2025" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.2 3 12 3 12 3s-4.2 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.2 3.3 1.2C7.6 22 12 22 12 22s4.2 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.5 3.6-6.5 3.5z"/></svg>YouTube 搜尋
+    </a>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
