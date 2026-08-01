@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>無人機 Remote ID 導入說明 | 沖繩 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+  :root {
+    --ocean: #1A6B8A; --ocean-light: #E8F4F8; --ocean-mid: #3D9DB8;
+    --sand: #F5F0E8; --ink: #1C2B35; --ink-mid: #4A6070; --ink-light: #8FA5B2;
+    --white: #FFFFFF; --border: #DDE8ED;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', sans-serif; background: var(--sand); color: var(--ink); }
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--ocean); color: white;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.75rem 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: white; text-decoration: none; font-size: 13px; font-weight: 500;
+    background: rgba(255,255,255,0.15); border-radius: 8px;
+    padding: 6px 12px;
+  }
+  .topbar-title { font-size: 14px; font-weight: 600; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+  .card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.1rem 1.2rem; margin-bottom: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  h1 { font-size: 1.25rem; margin: 0.5rem 0 1rem; color: var(--ocean); }
+  h2 { font-size: 1rem; color: var(--ocean); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 6px; }
+  p, li { font-size: 0.85rem; line-height: 1.8; color: var(--ink-mid); }
+  b { color: var(--ink); }
+  ol, ul { padding-left: 1.3rem; margin: 0.4rem 0; }
+  li { margin-bottom: 0.35rem; }
+  .step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--ocean); color: white; font-size: 11px; font-weight: 700; flex-shrink: 0;
+  }
+  .warn {
+    background: #FCEAEA; border: 1px solid #F0C0C0; border-radius: 8px;
+    padding: 8px 12px; font-size: 12px; color: #8A1A1A; line-height: 1.7; margin: 0.6rem 0;
+  }
+  .info {
+    background: var(--ocean-light); border: 1px solid #BBD8E4; border-radius: 8px;
+    padding: 8px 12px; font-size: 12px; color: #14536C; line-height: 1.7; margin: 0.6rem 0;
+  }
+  .ok {
+    background: #E8F5EC; border: 1px solid #A0D0A0; border-radius: 8px;
+    padding: 8px 12px; font-size: 12px; color: #1A5A20; line-height: 1.7; margin: 0.6rem 0;
+  }
+  .link-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--ocean); color: white; border-radius: 8px;
+    padding: 7px 13px; font-size: 12px; font-weight: 500; text-decoration: none;
+    margin: 4px 6px 0 0;
+  }
+  .link-btn.lite { background: var(--ocean-light); color: var(--ocean); border: 1px solid #BBD8E4; }
+  code {
+    background: #F0F4F6; border: 1px solid var(--border); border-radius: 5px;
+    padding: 1px 7px; font-size: 0.85em; color: var(--ocean); font-weight: 600;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin: 0.5rem 0; }
+  th, td { border: 1px solid var(--border); padding: 6px 9px; text-align: left; line-height: 1.6; color: var(--ink-mid); }
+  th { background: var(--ocean-light); color: var(--ocean); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back-btn" href="index.html">← 回行程</a>
+  <div><div class="topbar-title">🚁 無人機 Remote ID 導入說明</div></div>
+  <div style="width:70px;"></div>
+</div>
+
+<div class="wrap">
+<h1>日本飛行前必辦：機體登錄 + Remote ID</h1>
+
+<div class="card">
+  <h2>📡 什麼是 Remote ID？</h2>
+  <p>依日本航空法，<b>100g 以上</b>的無人機在日本飛行，必須完成國土交通省 <b>DIPS 2.0 機體登錄</b>，並讓機體在飛行中<b>持續廣播 Remote ID</b>（登錄記號 JU 開頭、序號、位置等資訊），類似汽車的電子車牌。DJI 機種內建 Remote ID 硬體，但<b>「登錄完 DIPS」不等於完成</b>——還要透過 DJI Fly App 把 DIPS 的登錄資訊<b>寫入（インポート）機體</b>才算生效。</p>
+  <div class="warn">⚠️ 未登錄或未寫入 Remote ID 就飛行，最高可處 1 年以下有期徒刑或 50 萬日圓以下罰金。出發前務必完成全部步驟。</div>
+</div>
+
+<div class="card">
+  <h2>🔧 導入五步驟（DJI 機種）</h2>
+  <ol>
+    <li><b>DIPS 2.0 機體登錄</b>：登入 DIPS → 機体登録 → 填機體序號（SN）→ 繳登錄手數料 → 取得登錄記號 <code>JU______</code></li>
+    <li><b>DIPS 設定 Remote ID 型式</b>：機体情報の確認/変更 → 「リモートID有無」選 <b>「あり（内蔵型）」</b>。<b>此步驟沒做，DJI Fly 不會出現寫入選項！</b></li>
+    <li><b>韌體全部更新到最新</b>：機體、遙控器、DJI Fly App 三者都要最新版，並確保網路連線與 GPS 收訊良好</li>
+    <li><b>DJI Fly 寫入</b>：連接機體 → 「安全」→「無人航空機システム リモートID」→ インポート → 跳轉國土交通省登入頁（SN 會自動帶入）→ 輸入 DIPS 帳號密碼 → <b>「同意して連携」</b>→ 確認顯示<b>「インポート済（已匯入）」</b></li>
+    <li><b>機身貼登錄記號</b>：登錄記號需以<b>高度 3mm 以上</b>字體標示於機身（胴體等耐衝擊部位），不可貼在槳保護罩或電池上。可用標籤機列印貼紙</li>
+  </ol>
+  <div class="ok">✅ 我們的 DIPS 登入 ID：<code>RUL566031</code>（密碼另存於密碼管理器，勿寫在此頁）</div>
+</div>
+
+<div class="card">
+  <h2>🗾 沖繩飛行前檢查清單</h2>
+  <ul>
+    <li><b>DIPS 飛行計畫通報（FISS）</b>：每次飛行前於 DIPS 2.0 通報飛行計畫，並確認當地無臨時禁飛</li>
+    <li><b>那霸機場周邊全面禁飛</b>：那霸市區、機場進場面範圍內不可飛（Day 1/4 市區行程無飛行機會）</li>
+    <li><b>美軍設施周邊禁飛</b>：嘉手納、普天間等基地周邊，北部沿岸點起飛前先查 GSI 地圖確認</li>
+    <li><b>DID 人口集中地區</b>：需國交省許可才可飛，未申請包括申請（包括許可）者避開</li>
+    <li><b>私有地需地主同意</b>：沖繩世界等園區需業者書面同意</li>
+    <li><b>基本規則</b>：日中飛行、目視範圍內、對人對物 30m 距離、150m 高度以下</li>
+  </ul>
+  <div class="info">💡 行程中的可飛點與注意事項，見景點頁各卡片的無人機標註（備瀨自然區域、南部海灘為主要建議點）。</div>
+</div>
+
+<div class="card">
+  <h2>🔗 參考連結</h2>
+  <a class="link-btn" href="https://support.dji.com/help/content?customId=zh-cn03400007191&spaceId=34&re=CN&lang=zh-CN" target="_blank">DJI 官方：Remote ID 寫入教學</a>
+  <a class="link-btn" href="https://www.ossportal.dips.mlit.go.jp/portal/top/" target="_blank">DIPS 2.0 入口</a>
+  <a class="link-btn lite" href="spots.html" target="_blank">景點頁（可飛點標註）</a>
+</div>
+
+</div>
+</body>
+</html>
