@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>☔ 四天雨天備案 | 沖繩 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+  :root {
+    --ocean: #1A6B8A; --ocean-light: #E8F4F8; --ocean-mid: #3D9DB8;
+    --sand: #F5F0E8; --ink: #1C2B35; --ink-mid: #4A6070; --ink-light: #8FA5B2;
+    --white: #FFFFFF; --border: #DDE8ED;
+    --d1: #E8A03D; --d2: #3D9DB8; --d3: #C86B4A; --d4: #6B8E5A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans TC', sans-serif; background: var(--sand); color: var(--ink); }
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--ocean); color: white;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.75rem 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: white; text-decoration: none; font-size: 13px; font-weight: 500;
+    background: rgba(255,255,255,0.15); border-radius: 8px; padding: 6px 12px;
+  }
+  .topbar-title { font-size: 14px; font-weight: 600; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+  h1 { font-size: 1.3rem; margin: 0.4rem 0 0.3rem; color: var(--ocean); }
+  .lede { font-size: 0.85rem; color: var(--ink-mid); line-height: 1.8; margin-bottom: 1rem; }
+  .day-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.1rem 1.2rem; margin-bottom: 1.1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  .day-head { display: flex; align-items: center; gap: 8px; margin-bottom: 0.3rem; }
+  .day-tag { color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px; }
+  .day-tag.d1 { background: var(--d1); } .day-tag.d2 { background: var(--d2); }
+  .day-tag.d3 { background: var(--d3); } .day-tag.d4 { background: var(--d4); }
+  .day-title { font-size: 1rem; font-weight: 700; color: var(--ink); }
+  .risk { font-size: 0.75rem; color: var(--ink-light); margin-bottom: 0.7rem; }
+  .layer { border-radius: 9px; padding: 0.6rem 0.8rem; margin-bottom: 0.6rem; }
+  .layer.light { background: #FFF8E6; border: 1px solid #EAD9A0; }
+  .layer.heavy { background: var(--ocean-light); border: 1px solid #BBD8E4; }
+  .layer-title { font-size: 0.82rem; font-weight: 700; margin-bottom: 0.35rem; }
+  .layer.light .layer-title { color: #8A6510; }
+  .layer.heavy .layer-title { color: #14536C; }
+  .layer p, .layer li { font-size: 0.8rem; line-height: 1.75; color: var(--ink-mid); }
+  .layer ul { padding-left: 1.15rem; margin: 0.2rem 0; }
+  .layer li { margin-bottom: 0.2rem; }
+  b { color: var(--ink); }
+  .skip { color: #B04A2A; font-weight: 500; }
+  .keep { color: #1A7A3C; font-weight: 500; }
+  .alert {
+    background: #FCEAEA; border: 1px solid #F0C0C0; border-radius: 8px;
+    padding: 7px 11px; font-size: 0.78rem; color: #8A1A1A; line-height: 1.7; margin-top: 0.5rem;
+  }
+  .tip-card {
+    background: #EAF5EE; border: 1px solid #A8D5B8; border-radius: 12px;
+    padding: 1rem 1.15rem; margin-bottom: 1.1rem;
+  }
+  .tip-card h2 { font-size: 0.95rem; color: #1A5A20; margin-bottom: 0.5rem; }
+  .tip-card li { font-size: 0.8rem; line-height: 1.8; color: #2A5A35; }
+  .tip-card ul { padding-left: 1.2rem; }
+  .swap-card {
+    background: #FFF3E0; border: 1px solid #E0B070; border-radius: 12px;
+    padding: 1rem 1.15rem; margin-bottom: 1.1rem;
+  }
+  .swap-card h2 { font-size: 0.95rem; color: #8A5010; margin-bottom: 0.5rem; }
+  .swap-card p { font-size: 0.8rem; line-height: 1.8; color: #6A4510; }
+  a.inline { color: var(--ocean); font-weight: 600; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back-btn" href="index.html">← 回行程</a>
+  <div><div class="topbar-title">☔ 四天雨天備案</div></div>
+  <div style="width:70px;"></div>
+</div>
+
+<div class="wrap">
+<h1>沖繩 8 月雨天怎麼救</h1>
+<p class="lede">
+  沖繩 8 月下旬多為<b>午後雷陣雨</b>（來得快去得快，1–2 小時就停），偶有颱風尾帶來整日大雨。每天分兩層備案：
+  <b style="color:#8A6510;">☁️ 午後陣雨</b>＝順序對調、躲室內 1–2 小時；<b style="color:#14536C;">🌧 整日大雨</b>＝整天改室內。
+  <span class="skip">紅字</span>是雨天要犧牲的戶外景，<span class="keep">綠字</span>是雨中照去甚至加分的點。
+</p>
+
+<!-- 通則 -->
+<div class="tip-card">
+  <h2>🌂 出發前必記通則</h2>
+  <ul>
+    <li>每天出門前看 <b>Windy / 日本氣象廳</b> 雷達，午後有紅色雨胞就把室內點提前</li>
+    <li>隨車放 <b>8 人份輕便雨衣</b>——海邊風大，傘會開花，雨衣比傘實用</li>
+    <li>午後陣雨多半 1–2 小時就停，<b>先躲不慌</b>，多數戶外點順序對調就能救</li>
+    <li>下雨或強風 <b>無人機不能飛</b>，備瀨、南部海灘的空拍計畫要有心理準備放棄</li>
+  </ul>
+</div>
+
+<!-- Day 1 -->
+<div class="day-card">
+  <div class="day-head"><span class="day-tag d1">Day 1</span><span class="day-title">8/20（四）那霸市區</span></div>
+  <div class="risk">怕雨程度：★☆☆☆☆　本來就室內為主，最不怕雨</div>
+  <div class="layer light">
+    <div class="layer-title">☁️ 午後陣雨</div>
+    <p>國際通有頂棚商店街照逛；躲進<b>牧志公設市場</b>、<b>壺屋通</b>（部分騎樓），或跳去 <b>PARCO CITY / BIC Camera</b> 吹冷氣。</p>
+  </div>
+  <div class="layer heavy">
+    <div class="layer-title">🌧 整日大雨</div>
+    <p>首里城戶外段縮短（正殿周邊有室內展示）；主力移到 <b>SAN-A PARCO CITY</b>（超大室內購物）＋國際通室內店家。Day 1 幾乎不受雨影響。</p>
+  </div>
+</div>
+
+<!-- Day 2 -->
+<div class="day-card">
+  <div class="day-head"><span class="day-tag d2">Day 2</span><span class="day-title">8/21（五）北部海岸</span></div>
+  <div class="risk">怕雨程度：★★★★★　戶外佔九成，最需要雨備</div>
+  <div class="layer light">
+    <div class="layer-title">☁️ 午後陣雨</div>
+    <p><b class="keep">美麗海水族館</b>是全室內王牌，可當避雨主場延長停留；<b>許田休息站</b>室內吃 Blue Seal 冰等雨停。</p>
+  </div>
+  <div class="layer heavy">
+    <div class="layer-title">🌧 整日大雨</div>
+    <ul>
+      <li><span class="skip">略過</span>：萬座毛（濕滑懸崖危險）、備瀨林道（泥濘）、古宇利大橋（雨中看不到翡翠海）</li>
+      <li><span class="keep">保留</span>：<b>部瀨名海中觀景塔</b>——在海面下看熱帶魚，雨完全淋不到，是 Day 2 唯一「因雨加分」的點</li>
+      <li><b>主場</b>：美麗海整個下午泡好泡滿（大到能耗 3–4 小時：黑潮大水槽、海豚秀有頂棚、觸摸池）</li>
+      <li><b>途中雨大插入</b>：名護鳳梨園（半室內導覽車）、DINO 恐龍公園（樹冠遮蔽，親子向）、Orion Happy Park 啤酒工廠（室內，開車者不試飲）、名護 Aeon Mall</li>
+    </ul>
+    <div class="alert">💡 美國村<b>不建議</b>拉到這天——它在中部、跟北部反方向會折返跑，且白天去看不到夜景燈光，還削弱 Day 3 壓軸。</div>
+  </div>
+</div>
+
+<!-- Day 3 -->
+<div class="day-card">
+  <div class="day-head"><span class="day-tag d3">Day 3</span><span class="day-title">8/22（六）南部海岸</span></div>
+  <div class="risk">怕雨程度：★★★☆☆　有出海行程，但南部室內備案最充足</div>
+  <div class="layer light">
+    <div class="layer-title">☁️ 午後陣雨</div>
+    <p>躲進 <b class="keep">琉球玻璃村</b>（室內 DIY）或 <b class="keep">玉泉洞</b>（洞內恆溫、雨天無感）；<b>DMM Kariyushi 水族館</b>就在瀨長島旁，陣雨時從 Umikaji 走過去剛好；系滿魚市場室內吃海鮮等雨停。</p>
+  </div>
+  <div class="layer heavy">
+    <div class="layer-title">🌧 整日大雨</div>
+    <ul>
+      <li><span class="skip">略過</span>：瀨長島 Umikaji（露天階梯）、新原沙灘散步</li>
+      <li><b>全天候路線</b>：<b>玉泉洞＋沖繩世界</b>（鐘乳石洞＋琉球王國村室內體驗＋Eisa 表演）→ <b>DMM 水族館</b> → <b>琉球玻璃村 DIY</b> → <b>ASHIBINAA Outlet</b>（Klook 券有折扣）→ <b>美國村</b>（晚餐＋室內購物，摩天輪彩燈雨中照亮）</li>
+    </ul>
+    <div class="alert">⛔ <b>OCEANS 玻璃底船</b>：風浪大會停航，且前一晚/當天才通知。<b>前一晚打電話或查官方 IG 確認航班</b>，停航直接用 <b>DMM Kariyushi 水族館</b>遞補（同樣看海洋生物、室內、就在附近）。已付訂金要問清退費/改期政策。<br>⛔ 青之洞窟浮潛（可選）：海況差業者常取消，本就是彈性項。</div>
+  </div>
+</div>
+
+<!-- Day 4 -->
+<div class="day-card">
+  <div class="day-head"><span class="day-tag d4">Day 4</span><span class="day-title">8/23（日）那霸市區＋回程</span></div>
+  <div class="risk">怕雨程度：★☆☆☆☆　市區＋回程，影響小</div>
+  <div class="layer light">
+    <div class="layer-title">☁️ 午後陣雨</div>
+    <p><b>RYUBO 百貨</b>、旭橋周邊室內午餐、Union 採買都在室內，陣雨無痛。</p>
+  </div>
+  <div class="layer heavy">
+    <div class="layer-title">🌧 整日大雨</div>
+    <p><span class="skip">略過</span>波上宮／波之上海灘（海灘雨中無意義）；時間移到 <b>RYUBO 採買</b>＋室內午餐，提早到機場。班機不受陣雨影響（延誤才啟動臨企銀刷卡不便險，見 <a class="inline" href="spots.html#insurance">保險卡</a>）。</p>
+  </div>
+</div>
+
+<!-- Day2/3 對調策略 -->
+<div class="swap-card">
+  <h2>🔄 進階策略：整天預報大雨時，Day 2 / Day 3 對調</h2>
+  <p>若某天<b>整天報大雨</b>，最聰明的做法不是硬換單一景點，而是把「北部日」和「南部日」互換：讓室內點更多的<b>南部（玉泉洞＋DMM 水族館＋玻璃村）落在雨天</b>，把<b>北部（萬座毛、備瀨、古宇利看海）留給晴天</b>。動線順、不折返，比單獨調某個點聰明得多。唯一要注意：租車 Day 2 早取車的安排不變，兩天對調的是「去北或去南」的方向。</p>
+</div>
+
+</div>
+</body>
+</html>
